@@ -95,6 +95,10 @@ export interface GenOptions {
    * Skip creating index file with module export
    */
   skipModuleExport?: boolean;
+  /**
+   * Skip validate spec
+   */
+  skipValidate?: boolean;
 }
 
 export type ClientGenerator = (...args: any[]) => Promise<string[]>; // tslint:disable-line no-any

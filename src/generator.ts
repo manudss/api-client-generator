@@ -25,7 +25,7 @@ export async function generateAPIClient(options: GenOptions): Promise<string[]> 
       },
       validate: {
         schema: true,
-        spec: true,
+        spec: !options.skipValidate,
       }
     });
   } catch (error) {
