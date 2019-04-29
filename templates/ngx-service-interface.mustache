@@ -3,6 +3,9 @@
 import { Observable } from 'rxjs';
 import { HttpOptions } from './';
 import * as models from '.{{#swaggerTag}}./..{{/swaggerTag}}/models';
+import { HttpRestService, GET, POST, DELETE, Path, PathParam, Body, QueryParam, QueryParams, ResponseObservable } from 'ngx-http-annotations';
+import { Injectable } from '@angular/core';
+import RestConfig from 'app/core/configs/rest.config';
 
 export interface {{&interfaceName}} {
 
@@ -11,16 +14,35 @@ export interface {{&interfaceName}} {
   /**
    * {{&.}}
    */
-{{/description}}  {{&methodName}}(
+{{/description}}
+  {{&methodName}}(
   {{#parameters.length}}
-    args: {
     {{#parameters}}
       {{&camelCaseName}}{{^isRequired}}?{{/isRequired}}: {{importType}}{{#isArray}}[]{{/isArray}},{{#description}}  //{{^isRequired}} (optional){{/isRequired}} {{&.}}{{/description}}
     {{/parameters}}
+    queryParams: {
+    {{#parameters}}
+        {{#isQueryParameter}}
+            {{&camelCaseName}}{{^isRequired}}?{{/isRequired}}: {{importType}}{{#isArray}}[]{{/isArray}},{{#description}}  //{{^isRequired}} (optional){{/isRequired}} {{&.}}{{/description}}
+        {{/isQueryParameter}}
+    {{/parameters}}
     },
   {{/parameters.length}}
-    requestHttpOptions?: HttpOptions
+   res: Observable<{{&response}}>
   ): Observable<{{&response}}>;
+  {{&methodName}}(
+  {{#parameters.length}}
+    {{#parameters}}
+      {{&camelCaseName}}{{^isRequired}}?{{/isRequired}}: {{importType}}{{#isArray}}[]{{/isArray}},{{#description}}  //{{^isRequired}} (optional){{/isRequired}} {{&.}}{{/description}}
+    {{/parameters}}
+  {{/parameters.length}}
+  ): Observable<{{&response}}>;
+  {{&methodName}}(
+  {{#parameters.length}}
+    {{#parameters}}
+      {{&camelCaseName}}{{^isRequired}}?{{/isRequired}}: {{importType}}{{#isArray}}[]{{/isArray}},{{#description}}  //{{^isRequired}} (optional){{/isRequired}} {{&.}}{{/description}}
+    {{/parameters}}
+  {{/parameters.length}}): Observable<{{&response}}>;
 
 {{/methods}}
 }
